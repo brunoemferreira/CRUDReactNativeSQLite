@@ -22,27 +22,15 @@ const ViewAllUser = () => {
     });
   }, []);
 
-  let listViewItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 0.2,
-          width: '100%',
-          backgroundColor: '#808080'
-        }}
-      />
-    );
-  };
-
   let listItemView = (item) => {
     return (
       <View
         key={item.user_id}
-        style={{ backgroundColor: 'white', padding: 20 }}>
-        <Text>Id: {item.user_id}</Text>
-        <Text>Name: {item.user_name}</Text>
-        <Text>Contact: {item.user_contact}</Text>
-        <Text>Address: {item.user_address}</Text>
+        style={{ backgroundColor: '#EEE', marginTop: 20, padding: 30, borderRadius: 10 }}>
+        <Text>Código   : {item.user_id}</Text>
+        <Text>Nome     : {item.user_name}</Text>
+        <Text>Contato  : {item.user_contact}</Text>
+        <Text>Endereço : {item.user_address}</Text>
       </View>
     );
   };
@@ -52,8 +40,9 @@ const ViewAllUser = () => {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
           <FlatList
+            style={{ marginTop: 30 }}
+            contentContainerStyle={{ paddingHorizontal: 20 }}
             data={flatListItems}
-            ItemSeparatorComponent={listViewItemSeparator}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => listItemView(item)}
           />

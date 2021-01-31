@@ -78,7 +78,7 @@ const App = () => {
           name="ViewAll"
           component={ViewAllUser}
           options={{
-            title: 'View Users', //Set Header Title
+            title: 'Visualizar Todos os Usuários', //Set Header Title
             headerStyle: {
               backgroundColor: '#384F62', //Set Header color
             },
@@ -92,7 +92,7 @@ const App = () => {
           name="Delete"
           component={DeleteUser}
           options={{
-            title: 'Delete User', //Set Header Title
+            title: 'Excluir Usuário', //Set Header Title
             headerStyle: {
               backgroundColor: '#D1503A', //Set Header color
             },
