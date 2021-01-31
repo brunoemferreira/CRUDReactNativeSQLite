@@ -6,11 +6,11 @@
 
 <!-- ************************************* Baadges ********************************************* -->
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/brunoemferreira/CRUDReactNativeSQLite?color=%2304D361">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/brunoemferreira/crud-react-native-sqlite?color=%2304D361">
 
- <img alt="Repository size" src="https://img.shields.io/github/repo-size/brunoemferreira/CRUDReactNativeSQLite">
+ <img alt="Repository size" src="https://img.shields.io/github/repo-size/brunoemferreira/crud-react-native-sqlite">
 
- <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/brunoemferreira/CRUDReactNativeSQLite">
+ <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/brunoemferreira/crud-react-native-sqlite">
 </p>
 
 <!-- ************************************* Título ********************************************* -->
@@ -79,6 +79,10 @@ Adicione notas adicionais sobre como implantar isso em um sistema ativo
 * [React Native](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
 * [Expo](https://maven.apache.org/) - Gerente de Dependência
 * [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
+
+
+Dependencias
+
 
 ## 🖇️ Colaborando
 
