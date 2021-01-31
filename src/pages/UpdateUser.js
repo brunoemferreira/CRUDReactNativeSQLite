@@ -54,19 +54,19 @@ const UpdateUser = ({ navigation }) => {
     console.log(inputUserId, userName, userContact, userAddress);
 
     if (!inputUserId) {
-      alert('Please fill User id');
+      alert('Por Favor informe o Código!');
       return;
     }
     if (!userName) {
-      alert('Please fill name');
+      alert('Por favor informe o Nome !');
       return;
     }
     if (!userContact) {
-      alert('Please fill Contact Number');
+      alert('Por Favor informe o Telefone !');
       return;
     }
     if (!userAddress) {
-      alert('Please fill Address');
+      alert('Por Favor informe o endereço !');
       return;
     }
 

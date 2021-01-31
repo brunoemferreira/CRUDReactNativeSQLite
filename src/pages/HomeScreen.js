@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import Mybutton from './components/Mybutton';
+import MyImageButton from './components/MyImageButton';
 import Mytext from './components/Mytext';
 import { DatabaseConnection } from '../database/database-connection';
 
@@ -33,24 +34,31 @@ const HomeScreen = ({ navigation }) => {
           <View style={{ flex: 1 }}>
             <Mytext text="Funcionalidades" />
 
-            <Mybutton
+            <MyImageButton
               title="Registrar Usuário"
+              btnIcon="user-plus"
               customClick={() => navigation.navigate('Register')}
             />
-            <Mybutton
+
+            <MyImageButton
               title="Atualizar Usuário"
+              btnIcon="user-circle"
               customClick={() => navigation.navigate('Update')}
             />
-            <Mybutton
-              title="Visualizar Usuários"
+
+            <MyImageButton
+              title="Visualizar Usuário"
+              btnIcon="user"
               customClick={() => navigation.navigate('View')}
             />
-            <Mybutton
+            <MyImageButton
               title="Visualizar Todos"
+              btnIcon="users"
               customClick={() => navigation.navigate('ViewAll')}
             />
-            <Mybutton
+            <MyImageButton
               title="Excluir Usuário"
+              btnIcon="user-times"
               customClick={() => navigation.navigate('Delete')}
             />
           </View>
