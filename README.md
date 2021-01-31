@@ -16,7 +16,7 @@
 <!-- ************************************* Título ********************************************* -->
 # CRUD React Native com SQLite 
 
-CRUD de app em React Native utilizando armazenamento local com SQLite
+Esse Projeto consiste em um App de Registro de Usuários, com as funcionalidades básicas de um CRUD ( Create / Read / Update / Delete ), utilizando o banco de Dados SQLite para gravação local dos dados.
 
 ## 🚀 Começando
 

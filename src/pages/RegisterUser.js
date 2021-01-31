@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   Alert,
   SafeAreaView,
-  Text,
 } from 'react-native';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';

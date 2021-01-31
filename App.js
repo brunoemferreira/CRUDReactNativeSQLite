@@ -9,8 +9,8 @@ import HomeScreen from './src/pages/HomeScreen';
 import RegisterUser from './src/pages/RegisterUser';
 import UpdateUser from './src/pages/UpdateUser';
 import ViewUser from './src/pages/ViewUser';
-// import ViewAllUser from './src/pages/ViewAllUser';
-// import DeleteUser from './src/pages/DeleteUser';
+import ViewAllUser from './src/pages/ViewAllUser';
+import DeleteUser from './src/pages/DeleteUser';
 
 const Stack = createStackNavigator();
 
@@ -67,6 +67,34 @@ const App = () => {
             title: 'Visualizar Usuário', //Set Header Title
             headerStyle: {
               backgroundColor: '#F9AD29', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+              fontWeight: 'bold', //Set Header text style
+            },
+          }}
+        />
+        <Stack.Screen
+          name="ViewAll"
+          component={ViewAllUser}
+          options={{
+            title: 'View Users', //Set Header Title
+            headerStyle: {
+              backgroundColor: '#384F62', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+              fontWeight: 'bold', //Set Header text style
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Delete"
+          component={DeleteUser}
+          options={{
+            title: 'Delete User', //Set Header Title
+            headerStyle: {
+              backgroundColor: '#D1503A', //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
