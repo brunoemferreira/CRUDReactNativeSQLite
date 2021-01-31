@@ -8,10 +8,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './src/pages/HomeScreen';
 import RegisterUser from './src/pages/RegisterUser';
-// import UpdateUser from './pages/UpdateUser';
-// import ViewUser from './pages/ViewUser';
-// import ViewAllUser from './pages/ViewAllUser';
-// import DeleteUser from './pages/DeleteUser';
+import UpdateUser from './src/pages/UpdateUser';
+// import ViewUser from './src/pages/ViewUser';
+// import ViewAllUser from './src/pages/ViewAllUser';
+// import DeleteUser from './src/pages/DeleteUser';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +23,7 @@ const App = () => {
           name="HomeScreen"
           component={HomeScreen}
           options={{
-            title: 'Home', //Set Header Title
+            title: 'Registro de Usuários', //Set Header Title
             headerStyle: {
               backgroundColor: '#00AD98', //Set Header color
             },
@@ -37,9 +37,23 @@ const App = () => {
           name="Register"
           component={RegisterUser}
           options={{
-            title: 'Register User', //Set Header Title
+            title: 'Cadastrar Usuário', //Set Header Title
             headerStyle: {
               backgroundColor: '#2992C4', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+              fontWeight: 'bold', //Set Header text style
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Update"
+          component={UpdateUser}
+          options={{
+            title: 'Atualizar Usuário', //Set Header Title
+            headerStyle: {
+              backgroundColor: '#A45BB9', //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {

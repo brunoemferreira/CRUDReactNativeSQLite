@@ -13,37 +13,71 @@ import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const RegisterUser = ({ navigation }) => {
+const UpdateUser = ({ navigation }) => {
+  let [inputUserId, setInputUserId] = useState('');
   let [userName, setUserName] = useState('');
   let [userContact, setUserContact] = useState('');
   let [userAddress, setUserAddress] = useState('');
 
-  let register_user = () => {
-    console.log(userName, userContact, userAddress);
+  let updateAllStates = (name, contact, address) => {
+    setUserName(name);
+    setUserContact(contact);
+    setUserAddress(address);
+  };
 
+  let searchUser = () => {
+    console.log(inputUserId);
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM table_user where user_id = ?',
+        [inputUserId],
+        (tx, results) => {
+          var len = results.rows.length;
+          if (len > 0) {
+            let res = results.rows.item(0);
+            updateAllStates(
+              res.user_name,
+              res.user_contact,
+              res.user_address
+            );
+          } else {
+            alert('Usuário não encontrado!');
+            updateAllStates('', '', '');
+          }
+        }
+      );
+    });
+  };
+  let updateUser = () => {
+    console.log(inputUserId, userName, userContact, userAddress);
+
+    if (!inputUserId) {
+      alert('Please fill User id');
+      return;
+    }
     if (!userName) {
-      alert('Por favor preencha o nome !');
+      alert('Please fill name');
       return;
     }
     if (!userContact) {
-      alert('Por favor preencha o contato');
+      alert('Please fill Contact Number');
       return;
     }
     if (!userAddress) {
-      alert('Por favor preencha o endereço !');
+      alert('Please fill Address');
       return;
     }
 
-    db.transaction(function (tx) {
+    db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO table_user (user_name, user_contact, user_address) VALUES (?,?,?)',
-        [userName, userContact, userAddress],
+        'UPDATE table_user set user_name=?, user_contact=? , user_address=? where user_id=?',
+        [userName, userContact, userAddress, inputUserId],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
             Alert.alert(
               'Sucesso',
-              'Usuário Registrado com Sucesso !!!',
+              'Usuário atualizado com sucesso !!',
               [
                 {
                   text: 'Ok',
@@ -52,7 +86,7 @@ const RegisterUser = ({ navigation }) => {
               ],
               { cancelable: false }
             );
-          } else alert('Erro ao tentar Registrar o Usuário !!!');
+          } else alert('Erro ao atualizar o usuário');
         }
       );
     });
@@ -67,22 +101,36 @@ const RegisterUser = ({ navigation }) => {
               behavior="padding"
               style={{ flex: 1, justifyContent: 'space-between' }}>
               <Mytextinput
+                placeholder="Entre com o Código do Usuário"
+                style={{ padding: 10 }}
+                onChangeText={
+                  (inputUserId) => setInputUserId(inputUserId)
+                }
+              />
+              <Mybutton
+                title="Buscar Usuário"
+                customClick={searchUser}
+              />
+              <Mytextinput
                 placeholder="Entre com o Nome"
+                value={userName}
+                style={{ padding: 10 }}
                 onChangeText={
                   (userName) => setUserName(userName)
                 }
-                style={{ padding: 10 }}
               />
               <Mytextinput
                 placeholder="Entre com o Telefone"
+                value={'' + userContact}
                 onChangeText={
                   (userContact) => setUserContact(userContact)
                 }
                 maxLength={10}
-                keyboardType="numeric"
                 style={{ padding: 10 }}
+                keyboardType="numeric"
               />
               <Mytextinput
+                value={userAddress}
                 placeholder="Entre com o Endereço"
                 onChangeText={
                   (userAddress) => setUserAddress(userAddress)
@@ -92,7 +140,10 @@ const RegisterUser = ({ navigation }) => {
                 multiline={true}
                 style={{ textAlignVertical: 'top', padding: 10 }}
               />
-              <Mybutton title="Salvar" customClick={register_user} />
+              <Mybutton
+                title="Atualizar Usuário"
+                customClick={updateUser}
+              />
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
@@ -101,4 +152,4 @@ const RegisterUser = ({ navigation }) => {
   );
 };
 
-export default RegisterUser;
+export default UpdateUser;

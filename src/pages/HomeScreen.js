@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
-          <Mytext text="SQLite Example" />
+          <Mytext text="Funcionalidades" />
           <Mybutton
             title="Registrar Usuário"
             customClick={() => navigation.navigate('Register')}
