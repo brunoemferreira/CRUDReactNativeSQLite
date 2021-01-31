@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   Text,
 } from 'react-native';
+
+import Mytext from './components/Mytext';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';
 import { DatabaseConnection } from '../database/database-connection';
@@ -100,6 +102,7 @@ const UpdateUser = ({ navigation }) => {
             <KeyboardAvoidingView
               behavior="padding"
               style={{ flex: 1, justifyContent: 'space-between' }}>
+              <Mytext text="Filtro de Usuário" />
               <Mytextinput
                 placeholder="Entre com o Código do Usuário"
                 style={{ padding: 10 }}

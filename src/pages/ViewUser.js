@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, SafeAreaView } from 'react-native';
+import Mytext from './components/Mytext';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';
 import { DatabaseConnection } from '../database/database-connection';
@@ -34,6 +35,7 @@ const ViewUser = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
+          <Mytext text="Filtro de Usuário" />
           <Mytextinput
             placeholder="Entre com o Código do Usuário"
             onChangeText={
