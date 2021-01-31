@@ -30,28 +30,33 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
-          <Mytext text="Funcionalidades" />
-          <Mybutton
-            title="Registrar Usuário"
-            customClick={() => navigation.navigate('Register')}
-          />
-          <Mybutton
-            title="Atualizar Usuário"
-            customClick={() => navigation.navigate('Update')}
-          />
-          <Mybutton
-            title="Visualizar Usuários"
-            customClick={() => navigation.navigate('View')}
-          />
-          <Mybutton
-            title="Visualizar Todos"
-            customClick={() => navigation.navigate('ViewAll')}
-          />
-          <Mybutton
-            title="Excluir Usuário"
-            customClick={() => navigation.navigate('Delete')}
-          />
+          <View style={{ flex: 1 }}>
+            <Mytext text="Funcionalidades" />
+
+            <Mybutton
+              title="Registrar Usuário"
+              customClick={() => navigation.navigate('Register')}
+            />
+            <Mybutton
+              title="Atualizar Usuário"
+              customClick={() => navigation.navigate('Update')}
+            />
+            <Mybutton
+              title="Visualizar Usuários"
+              customClick={() => navigation.navigate('View')}
+            />
+            <Mybutton
+              title="Visualizar Todos"
+              customClick={() => navigation.navigate('ViewAll')}
+            />
+            <Mybutton
+              title="Excluir Usuário"
+              customClick={() => navigation.navigate('Delete')}
+            />
+          </View>
         </View>
+
+
       </View>
     </SafeAreaView>
   );

@@ -6,6 +6,7 @@ const Mybutton = (props) => {
     <TouchableOpacity
       style={styles.button}
       onPress={props.customClick}>
+
       <Text style={styles.text}>
         {props.title}
       </Text>
