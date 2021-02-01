@@ -7,7 +7,7 @@ const MyImageButton = (props) => {
 
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={[styles.button, { backgroundColor: props.btnColor }]}
       onPress={props.customClick}>
 
       <Icon style={styles.icon}
@@ -23,7 +23,6 @@ const MyImageButton = (props) => {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#00AD98',
     color: '#ffffff',
     padding: 10,
     marginTop: 16,

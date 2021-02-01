@@ -22,13 +22,13 @@ const App = () => {
           name="HomeScreen"
           component={HomeScreen}
           options={{
-            title: 'Registro de Usuários', //Set Header Title
+            title: 'Registro de Usuários',
             headerStyle: {
-              backgroundColor: '#00AD98', //Set Header color
+              backgroundColor: '#00AD98',
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -36,13 +36,13 @@ const App = () => {
           name="Register"
           component={RegisterUser}
           options={{
-            title: 'Cadastrar Usuário', //Set Header Title
+            title: 'Cadastrar Usuário',
             headerStyle: {
-              backgroundColor: '#2992C4', //Set Header color
+              backgroundColor: '#2992C4',
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -50,13 +50,13 @@ const App = () => {
           name="Update"
           component={UpdateUser}
           options={{
-            title: 'Atualizar Usuário', //Set Header Title
+            title: 'Atualizar Usuário',
             headerStyle: {
-              backgroundColor: '#A45BB9', //Set Header color
+              backgroundColor: '#A45BB9',
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -64,13 +64,13 @@ const App = () => {
           name="View"
           component={ViewUser}
           options={{
-            title: 'Visualizar Usuário', //Set Header Title
+            title: 'Visualizar Usuário',
             headerStyle: {
-              backgroundColor: '#F9AD29', //Set Header color
+              backgroundColor: '#F9AD29',
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -78,13 +78,13 @@ const App = () => {
           name="ViewAll"
           component={ViewAllUser}
           options={{
-            title: 'Visualizar Todos os Usuários', //Set Header Title
+            title: 'Visualizar Todos os Usuários',
             headerStyle: {
-              backgroundColor: '#384F62', //Set Header color
+              backgroundColor: '#384F62',
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -92,13 +92,13 @@ const App = () => {
           name="Delete"
           component={DeleteUser}
           options={{
-            title: 'Excluir Usuário', //Set Header Title
+            title: 'Excluir Usuário',
             headerStyle: {
-              backgroundColor: '#D1503A', //Set Header color
+              backgroundColor: '#D1503A',
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
