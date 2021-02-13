@@ -73,7 +73,7 @@ Esse Projeto consiste em um App de Registro de Usuários, com as funcionalidades
 # Clone este repositório
 $ git clone https://github.com/brunoemferreira/CRUDReactNativeSQLite.git
 
-# Acesse a pasta backend
+# Acesse a pasta do Projeto
 $ cd CRUDReactNativeSQLite
 
 # execute o comando
