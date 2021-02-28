@@ -76,6 +76,11 @@ $ git clone https://github.com/brunoemferreira/CRUDReactNativeSQLite.git
 # Acesse a pasta do Projeto
 $ cd CRUDReactNativeSQLite
 
+# Baixar as dependências
+$ yarn install
+ou
+$ npm install
+
 # execute o comando
 $ yarn start
 ou
