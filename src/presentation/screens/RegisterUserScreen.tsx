@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
-  KeyboardAvoidingView,
   Alert,
   StyleSheet,
-  Platform,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome } from '@expo/vector-icons';
 import { MyTextInput } from '../components/MyTextInput';
 import { MyButton } from '../components/MyButton';
+import { KeyboardScrollContainer } from '../components/KeyboardScrollContainer';
 import { RegisterScreenNavigationProp } from '../../navigation/types';
 import { createUserUseCase } from '../../di/container';
 import { theme } from '../theme';
@@ -25,6 +24,27 @@ export const RegisterUserScreen: React.FC<RegisterUserScreenProps> = ({ navigati
   const [userContact, setUserContact] = useState('');
   const [userAddress, setUserAddress] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
+  const activeFieldRef = useRef<'name' | 'contact' | 'address' | null>(null);
+
+  const doScroll = (field: 'name' | 'contact' | 'address') => {
+    let targetY = 0;
+    if (field === 'address') {
+      targetY = 240;
+    } else if (field === 'contact') {
+      targetY = 120;
+    } else {
+      targetY = 0;
+    }
+    scrollRef.current?.scrollTo({ y: targetY, animated: true });
+  };
+
+  const scrollToInput = (field: 'name' | 'contact' | 'address') => {
+    activeFieldRef.current = field;
+    doScroll(field);
+    setTimeout(() => doScroll(field), 150);
+    setTimeout(() => doScroll(field), 350);
+  };
 
   const handleRegisterUser = async () => {
     setIsSubmitting(true);
@@ -54,68 +74,72 @@ export const RegisterUserScreen: React.FC<RegisterUserScreenProps> = ({ navigati
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.keyboardView}>
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}>
-          
-          {/* Information Card */}
-          <View style={styles.infoCard}>
-            <View style={styles.infoIconContainer}>
-              <FontAwesome name="user-plus" size={20} color={theme.colors.primary} />
-            </View>
-            <View style={styles.infoTextContainer}>
-              <Text style={styles.infoTitle}>Novo Usuário</Text>
-              <Text style={styles.infoDescription}>
-                Preencha os campos abaixo para persistir os dados no banco SQLite local.
-              </Text>
-            </View>
+      <KeyboardScrollContainer
+        ref={scrollRef}
+        contentContainerStyle={styles.scrollContent}
+        onKeyboardDidShow={() => {
+          if (activeFieldRef.current) {
+            doScroll(activeFieldRef.current);
+          }
+        }}
+        extraBottomPadding={theme.spacing.xl}>
+        
+        {/* Information Card */}
+        <View style={styles.infoCard}>
+          <View style={styles.infoIconContainer}>
+            <FontAwesome name="user-plus" size={20} color={theme.colors.primary} />
           </View>
-
-          {/* Form Card */}
-          <View style={styles.formCard}>
-            <MyTextInput
-              label="Nome Completo *"
-              icon="user"
-              placeholder="Ex: Maria Silva"
-              value={userName}
-              onChangeText={setUserName}
-            />
-
-            <MyTextInput
-              label="Telefone / Contato *"
-              icon="phone"
-              placeholder="Ex: (11) 98765-4321"
-              value={userContact}
-              onChangeText={setUserContact}
-              maxLength={15}
-              keyboardType="phone-pad"
-            />
-
-            <MyTextInput
-              label="Endereço *"
-              icon="map-marker"
-              placeholder="Ex: Av. Paulista, 1000 - São Paulo, SP"
-              value={userAddress}
-              onChangeText={setUserAddress}
-              maxLength={255}
-              numberOfLines={4}
-              multiline={true}
-            />
-
-            <MyButton
-              title="Salvar Registro"
-              icon="check"
-              loading={isSubmitting}
-              customClick={handleRegisterUser}
-              style={styles.submitButton}
-            />
+          <View style={styles.infoTextContainer}>
+            <Text style={styles.infoTitle}>Novo Usuário</Text>
+            <Text style={styles.infoDescription}>
+              Preencha os campos abaixo para persistir os dados no banco SQLite local.
+            </Text>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </View>
+
+        {/* Form Card */}
+        <View style={styles.formCard}>
+          <MyTextInput
+            label="Nome Completo *"
+            icon="user"
+            placeholder="Ex: Maria Silva"
+            value={userName}
+            onChangeText={setUserName}
+            onFocus={() => scrollToInput('name')}
+          />
+
+          <MyTextInput
+            label="Telefone / Contato *"
+            icon="phone"
+            placeholder="Ex: (11) 98765-4321"
+            value={userContact}
+            onChangeText={setUserContact}
+            maxLength={15}
+            keyboardType="phone-pad"
+            onFocus={() => scrollToInput('contact')}
+          />
+
+          <MyTextInput
+            label="Endereço *"
+            icon="map-marker"
+            placeholder="Ex: Av. Paulista, 1000 - São Paulo, SP"
+            value={userAddress}
+            onChangeText={setUserAddress}
+            maxLength={255}
+            numberOfLines={4}
+            multiline={true}
+            onFocus={() => scrollToInput('address')}
+          />
+
+          <MyButton
+            title="Salvar Registro"
+            icon="check"
+            loading={isSubmitting}
+            customClick={handleRegisterUser}
+            style={styles.submitButton}
+          />
+        </View>
+      </KeyboardScrollContainer>
     </SafeAreaView>
   );
 };
@@ -125,12 +149,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
-  keyboardView: {
-    flex: 1,
-  },
   scrollContent: {
     paddingVertical: theme.spacing.md,
-    paddingBottom: 40,
   },
   infoCard: {
     flexDirection: 'row',

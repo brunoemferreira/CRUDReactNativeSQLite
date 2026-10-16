@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
-  KeyboardAvoidingView,
   Alert,
   StyleSheet,
-  Platform,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome } from '@expo/vector-icons';
 import { MyTextInput } from '../components/MyTextInput';
 import { MyButton } from '../components/MyButton';
 import { SearchTypeSelector } from '../components/SearchTypeSelector';
+import { KeyboardScrollContainer } from '../components/KeyboardScrollContainer';
 import { UpdateScreenNavigationProp } from '../../navigation/types';
 import {
   getUserByIdUseCase,
@@ -37,6 +36,32 @@ export const UpdateUserScreen: React.FC<UpdateUserScreenProps> = ({ navigation }
   const [isSearching, setIsSearching] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userFound, setUserFound] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
+  const activeFieldRef = useRef<'search' | 'name' | 'contact' | 'address' | null>(null);
+
+  const doScroll = (position: 'search' | 'name' | 'contact' | 'address') => {
+    switch (position) {
+      case 'search':
+        scrollRef.current?.scrollTo({ y: 0, animated: true });
+        break;
+      case 'name':
+        scrollRef.current?.scrollTo({ y: 190, animated: true });
+        break;
+      case 'contact':
+        scrollRef.current?.scrollTo({ y: 280, animated: true });
+        break;
+      case 'address':
+        scrollRef.current?.scrollTo({ y: 400, animated: true });
+        break;
+    }
+  };
+
+  const scrollToInput = (position: 'search' | 'name' | 'contact' | 'address') => {
+    activeFieldRef.current = position;
+    doScroll(position);
+    setTimeout(() => doScroll(position), 150);
+    setTimeout(() => doScroll(position), 350);
+  };
 
   const handleSearchUser = async () => {
     const query = searchValue.trim();
@@ -117,105 +142,110 @@ export const UpdateUserScreen: React.FC<UpdateUserScreenProps> = ({ navigation }
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.keyboardView}>
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}>
-          
-          {/* Search Card */}
-          <View style={styles.card}>
-            <View style={styles.cardHeader}>
-              <FontAwesome name="search" size={16} color={SCREEN_COLOR} />
-              <Text style={styles.cardHeaderTitle}>Localizar Registro para Editar</Text>
-            </View>
-
-            {/* Selector: Por Código vs Por Nome */}
-            <SearchTypeSelector
-              searchType={searchType}
-              onSelectType={(type) => {
-                setSearchType(type);
-                setSearchValue('');
-                setUserFound(false);
-                setTargetUserId(null);
-              }}
-              activeColor={SCREEN_COLOR}
-            />
-
-            <MyTextInput
-              label={searchType === 'id' ? 'Código do Usuário (ID) *' : 'Nome do Usuário *'}
-              icon={searchType === 'id' ? 'hashtag' : 'user'}
-              placeholder={searchType === 'id' ? 'Ex: 1' : 'Ex: Lucas Mendes'}
-              keyboardType={searchType === 'id' ? 'numeric' : 'default'}
-              value={searchValue}
-              onChangeText={(text) => {
-                setSearchValue(text);
-                if (userFound) setUserFound(false);
-              }}
-            />
-
-            <MyButton
-              title="Buscar Registro"
-              icon="search"
-              loading={isSearching}
-              customClick={handleSearchUser}
-              style={[styles.cardButton, { backgroundColor: SCREEN_COLOR }]}
-            />
+      <KeyboardScrollContainer
+        ref={scrollRef}
+        contentContainerStyle={styles.scrollContent}
+        onKeyboardDidShow={() => {
+          if (activeFieldRef.current) {
+            doScroll(activeFieldRef.current);
+          }
+        }}
+        extraBottomPadding={theme.spacing.xl}>
+        
+        {/* Search Card */}
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <FontAwesome name="search" size={16} color={SCREEN_COLOR} />
+            <Text style={styles.cardHeaderTitle}>Localizar Registro para Editar</Text>
           </View>
 
-          {/* Edit Form Card */}
-          <View style={styles.card}>
-            <View style={styles.cardHeader}>
-              <FontAwesome name="edit" size={16} color={SCREEN_COLOR} />
-              <Text style={styles.cardHeaderTitle}>Dados para Atualização</Text>
-              {userFound && targetUserId && (
-                <View style={styles.badgeSuccess}>
-                  <Text style={styles.badgeSuccessText}>ID #{targetUserId} Carregado</Text>
-                </View>
-              )}
-            </View>
+          {/* Selector: Por Código vs Por Nome */}
+          <SearchTypeSelector
+            searchType={searchType}
+            onSelectType={(type) => {
+              setSearchType(type);
+              setSearchValue('');
+              setUserFound(false);
+              setTargetUserId(null);
+            }}
+            activeColor={SCREEN_COLOR}
+          />
 
-            <MyTextInput
-              label="Nome Completo *"
-              icon="user"
-              placeholder="Nome do Usuário"
-              value={userName}
-              onChangeText={setUserName}
-            />
+          <MyTextInput
+            label={searchType === 'id' ? 'Código do Usuário (ID) *' : 'Nome do Usuário *'}
+            icon={searchType === 'id' ? 'hashtag' : 'user'}
+            placeholder={searchType === 'id' ? 'Ex: 1' : 'Ex: Lucas Mendes'}
+            keyboardType={searchType === 'id' ? 'numeric' : 'default'}
+            value={searchValue}
+            onChangeText={(text) => {
+              setSearchValue(text);
+              if (userFound) setUserFound(false);
+            }}
+            onFocus={() => scrollToInput('search')}
+          />
 
-            <MyTextInput
-              label="Telefone / Contato *"
-              icon="phone"
-              placeholder="Telefone"
-              value={userContact}
-              onChangeText={setUserContact}
-              maxLength={15}
-              keyboardType="phone-pad"
-            />
+          <MyButton
+            title="Buscar Registro"
+            icon="search"
+            loading={isSearching}
+            customClick={handleSearchUser}
+            style={[styles.cardButton, { backgroundColor: SCREEN_COLOR }]}
+          />
+        </View>
 
-            <MyTextInput
-              label="Endereço *"
-              icon="map-marker"
-              placeholder="Endereço completo"
-              value={userAddress}
-              onChangeText={setUserAddress}
-              maxLength={255}
-              numberOfLines={4}
-              multiline={true}
-            />
-
-            <MyButton
-              title="Salvar Alterações"
-              icon="save"
-              loading={isSubmitting}
-              customClick={handleUpdateUser}
-              style={[styles.cardButton, { backgroundColor: SCREEN_COLOR }]}
-            />
+        {/* Edit Form Card */}
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <FontAwesome name="edit" size={16} color={SCREEN_COLOR} />
+            <Text style={styles.cardHeaderTitle}>Dados para Atualização</Text>
+            {userFound && targetUserId && (
+              <View style={styles.badgeSuccess}>
+                <Text style={styles.badgeSuccessText}>ID #{targetUserId} Carregado</Text>
+              </View>
+            )}
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+
+          <MyTextInput
+            label="Nome Completo *"
+            icon="user"
+            placeholder="Nome do Usuário"
+            value={userName}
+            onChangeText={setUserName}
+            onFocus={() => scrollToInput('name')}
+          />
+
+          <MyTextInput
+            label="Telefone / Contato *"
+            icon="phone"
+            placeholder="Telefone"
+            value={userContact}
+            onChangeText={setUserContact}
+            maxLength={15}
+            keyboardType="phone-pad"
+            onFocus={() => scrollToInput('contact')}
+          />
+
+          <MyTextInput
+            label="Endereço *"
+            icon="map-marker"
+            placeholder="Endereço completo"
+            value={userAddress}
+            onChangeText={setUserAddress}
+            maxLength={255}
+            numberOfLines={4}
+            multiline={true}
+            onFocus={() => scrollToInput('address')}
+          />
+
+          <MyButton
+            title="Salvar Alterações"
+            icon="save"
+            loading={isSubmitting}
+            customClick={handleUpdateUser}
+            style={[styles.cardButton, { backgroundColor: SCREEN_COLOR }]}
+          />
+        </View>
+      </KeyboardScrollContainer>
     </SafeAreaView>
   );
 };
@@ -225,12 +255,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
-  keyboardView: {
-    flex: 1,
-  },
   scrollContent: {
     paddingVertical: theme.spacing.md,
-    paddingBottom: 40,
   },
   card: {
     backgroundColor: theme.colors.surface,
