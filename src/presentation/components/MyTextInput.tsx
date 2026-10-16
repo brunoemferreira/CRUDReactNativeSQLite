@@ -23,6 +23,8 @@ interface MyTextInputProps {
   numberOfLines?: number;
   multiline?: boolean;
   editable?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
   style?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
 }
@@ -38,6 +40,8 @@ export const MyTextInput: React.FC<MyTextInputProps> = ({
   numberOfLines,
   multiline = false,
   editable = true,
+  onFocus,
+  onBlur,
   style,
   containerStyle,
 }) => {
@@ -73,8 +77,14 @@ export const MyTextInput: React.FC<MyTextInputProps> = ({
           maxLength={maxLength}
           value={value}
           editable={editable}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={() => {
+            setIsFocused(true);
+            onFocus?.();
+          }}
+          onBlur={() => {
+            setIsFocused(false);
+            onBlur?.();
+          }}
           style={[
             styles.input,
             multiline && styles.multilineInput,
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
   multilineContainer: {
     alignItems: 'flex-start',
     paddingVertical: 10,
-    minHeight: 100,
+    minHeight: 90,
   },
   containerFocused: {
     borderColor: theme.colors.borderFocus,
@@ -144,7 +154,7 @@ const styles = StyleSheet.create({
   },
   multilineInput: {
     textAlignVertical: 'top',
-    height: 80,
+    minHeight: 70,
     paddingTop: 0,
   },
 });
