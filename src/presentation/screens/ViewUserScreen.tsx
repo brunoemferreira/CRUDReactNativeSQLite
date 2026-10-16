@@ -4,13 +4,13 @@ import {
   View,
   StyleSheet,
   Alert,
-  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome } from '@expo/vector-icons';
 import { MyTextInput } from '../components/MyTextInput';
 import { MyButton } from '../components/MyButton';
 import { SearchTypeSelector } from '../components/SearchTypeSelector';
+import { KeyboardScrollContainer } from '../components/KeyboardScrollContainer';
 import { User } from '../../domain/entities/User';
 import { getUserByIdUseCase, getUserByNameUseCase } from '../../di/container';
 import { theme } from '../theme';
@@ -62,10 +62,9 @@ export const ViewUserScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
+      <KeyboardScrollContainer
         contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
+        extraBottomPadding={theme.spacing.xl}>
         
         {/* Search Card */}
         <View style={styles.searchCard}>
@@ -155,7 +154,7 @@ export const ViewUserScreen: React.FC = () => {
             </Text>
           </View>
         )}
-      </ScrollView>
+      </KeyboardScrollContainer>
     </SafeAreaView>
   );
 };

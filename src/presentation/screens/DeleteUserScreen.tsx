@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, Alert, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome } from '@expo/vector-icons';
 import { MyTextInput } from '../components/MyTextInput';
 import { MyButton } from '../components/MyButton';
 import { SearchTypeSelector } from '../components/SearchTypeSelector';
+import { KeyboardScrollContainer } from '../components/KeyboardScrollContainer';
 import { DeleteScreenNavigationProp } from '../../navigation/types';
 import { deleteUserUseCase, getUserByIdUseCase, getUserByNameUseCase } from '../../di/container';
 import { theme } from '../theme';
@@ -19,6 +20,17 @@ export const DeleteUserScreen: React.FC<DeleteUserScreenProps> = ({ navigation }
   const [searchType, setSearchType] = useState<'id' | 'name'>('id');
   const [searchValue, setSearchValue] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
+
+  const scrollToInput = () => {
+    scrollRef.current?.scrollTo({ y: 70, animated: true });
+    setTimeout(() => {
+      scrollRef.current?.scrollTo({ y: 70, animated: true });
+    }, 150);
+    setTimeout(() => {
+      scrollRef.current?.scrollTo({ y: 70, animated: true });
+    }, 350);
+  };
 
   const handleDeleteUser = async () => {
     const query = searchValue.trim();
@@ -100,10 +112,10 @@ export const DeleteUserScreen: React.FC<DeleteUserScreenProps> = ({ navigation }
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
+      <KeyboardScrollContainer
+        ref={scrollRef}
         contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
+        extraBottomPadding={theme.spacing.xl}>
         
         {/* Warning Banner */}
         <View style={styles.warningCard}>
@@ -142,6 +154,7 @@ export const DeleteUserScreen: React.FC<DeleteUserScreenProps> = ({ navigation }
             keyboardType={searchType === 'id' ? 'numeric' : 'default'}
             value={searchValue}
             onChangeText={setSearchValue}
+            onFocus={scrollToInput}
           />
 
           <MyButton
@@ -153,7 +166,7 @@ export const DeleteUserScreen: React.FC<DeleteUserScreenProps> = ({ navigation }
             style={styles.deleteButton}
           />
         </View>
-      </ScrollView>
+      </KeyboardScrollContainer>
     </SafeAreaView>
   );
 };

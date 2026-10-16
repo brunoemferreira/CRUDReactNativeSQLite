@@ -155,6 +155,8 @@ export const ViewAllUserScreen: React.FC = () => {
             renderItem={renderUserItem}
             refreshing={loading}
             onRefresh={fetchUsers}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
           />
         )}
