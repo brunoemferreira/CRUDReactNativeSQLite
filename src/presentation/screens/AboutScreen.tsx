@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { APP_VERSION } from '../../config/appConfig';
 
 const SCREEN_COLOR = '#0D9488'; // Teal
 
@@ -53,7 +54,7 @@ export const AboutScreen: React.FC = () => {
           <Text style={styles.appSubtitle}>CRUD React Native com SQLite & Clean Arch</Text>
           <View style={styles.heroBadgeRow}>
             <View style={styles.heroBadge}>
-              <Text style={styles.heroBadgeText}>Versão 1.0.0</Text>
+              <Text style={styles.heroBadgeText}>Versão {APP_VERSION}</Text>
             </View>
             <View style={[styles.heroBadge, styles.heroBadgeAccent]}>
               <Text style={styles.heroBadgeText}>Expo SDK 57</Text>
@@ -186,6 +187,50 @@ export const AboutScreen: React.FC = () => {
             <Text style={styles.pillarTitle}>3. Result Pattern</Text>
             <Text style={styles.pillarDesc}>
               Tratamento previsível e tipado de sucesso e erro sem exceções não tratadas.
+            </Text>
+          </View>
+        </View>
+
+        {/* Histórico de Versões */}
+        <View style={styles.sectionCard}>
+          <View style={styles.sectionHeader}>
+            <FontAwesome name="history" size={16} color={SCREEN_COLOR} />
+            <Text style={styles.sectionTitle}>Histórico de Versões</Text>
+          </View>
+
+          <View style={styles.versionReleaseItem}>
+            <View style={styles.versionReleaseHeader}>
+              <View style={[styles.versionTag, styles.versionTagCurrent]}>
+                <Text style={styles.versionTagCurrentText}>v2.2.0 (Atual)</Text>
+              </View>
+              <Text style={styles.versionDate}>16 Out 2026</Text>
+            </View>
+            <Text style={styles.versionReleaseDesc}>
+              Ajuste de scroll automático no foco dos inputs, suporte otimizado a teclado no Android e controle dinâmico de versões.
+            </Text>
+          </View>
+
+          <View style={styles.versionReleaseItem}>
+            <View style={styles.versionReleaseHeader}>
+              <View style={styles.versionTag}>
+                <Text style={styles.versionTagText}>v2.1.0</Text>
+              </View>
+              <Text style={styles.versionDate}>16 Out 2026</Text>
+            </View>
+            <Text style={styles.versionReleaseDesc}>
+              Modernização visual completa de ícones vetoriais Lucide e reformulação do README.
+            </Text>
+          </View>
+
+          <View style={[styles.versionReleaseItem, { borderBottomWidth: 0, paddingBottom: 0 }]}>
+            <View style={styles.versionReleaseHeader}>
+              <View style={styles.versionTag}>
+                <Text style={styles.versionTagText}>v2.0.0</Text>
+              </View>
+              <Text style={styles.versionDate}>16 Out 2026</Text>
+            </View>
+            <Text style={styles.versionReleaseDesc}>
+              Reescrita total com Clean Architecture, Expo SDK 57, React Native 0.86, SQLite v15 e TypeScript estrito.
             </Text>
           </View>
         </View>
@@ -362,5 +407,45 @@ const styles = StyleSheet.create({
     color: theme.colors.textSecondary,
     marginTop: 2,
     lineHeight: 17,
+  },
+  versionReleaseItem: {
+    paddingBottom: 12,
+    marginBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.borderLight,
+  },
+  versionReleaseHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  versionTag: {
+    backgroundColor: '#F1F5F9',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: theme.borderRadius.sm,
+  },
+  versionTagCurrent: {
+    backgroundColor: '#CCFBF1',
+  },
+  versionTagText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: theme.colors.textSecondary,
+  },
+  versionTagCurrentText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: SCREEN_COLOR,
+  },
+  versionDate: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+  },
+  versionReleaseDesc: {
+    fontSize: 12,
+    color: theme.colors.textSecondary,
+    lineHeight: 18,
   },
 });
