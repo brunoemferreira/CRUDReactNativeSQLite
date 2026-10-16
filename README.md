@@ -9,6 +9,7 @@
 <h1 align="center"><img src="./assets/icons/mobile.svg" width="28" height="28" valign="middle" /> CRUD React Native com SQLite & Clean Architecture</h1>
 
 <p align="center">
+  <img alt="Versão" src="https://img.shields.io/badge/Vers%C3%A3o-2.2.0-0D9488?style=for-the-badge&logo=git&logoColor=white">
   <img alt="React Native Version" src="https://img.shields.io/badge/React%20Native-0.86.3-61DAFB?style=for-the-badge&logo=react&logoColor=black">
   <img alt="Expo SDK" src="https://img.shields.io/badge/Expo%20SDK-57.0.30-000020?style=for-the-badge&logo=expo&logoColor=white">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6.0.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
@@ -392,7 +393,7 @@ Para exercitar o aplicativo didaticamente, siga este fluxo:
 
 6. **Informações do Aplicativo (Sobre):**
    - Na Home, toque em **Sobre o Aplicativo**.
-   - Visualize a versão da aplicação (1.0.0), detalhes do ecossistema técnico (React Native 0.86, Expo SDK 57, SQLite v15 Sync, TypeScript 6.0), pilares arquiteturais e links úteis.
+   - Visualize a versão ativa da aplicação (vinculada dinamicamente ao `package.json`), histórico cronológico de versões, ecossistema técnico detalhado (React Native 0.86, Expo SDK 57, SQLite v15 Sync, TypeScript 6.0), pilares arquiteturais e links úteis.
 
 ---
 
@@ -411,6 +412,52 @@ Para exercitar o aplicativo didaticamente, siga este fluxo:
 > ```bash
 > npx expo start -c
 > ```
+
+---
+
+## <img src="./assets/icons/history.svg" width="22" height="22" valign="middle" /> Histórico de Versões (Changelog)
+
+Todas as alterações notáveis deste projeto a partir da versão `2.0.0` são documentadas nesta seção, seguindo os princípios de [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e [Semantic Versioning (SemVer)](https://semver.org/lang/pt-BR/).
+
+### [2.2.0] - 2026-10-16
+
+#### Adicionado (feat)
+- **Controle Dinâmico de Versão:** Módulo `appConfig.ts` importando diretamente `version` e `name` do `package.json`, sincronizado com a tela Sobre e metadados do `app.json`.
+- **Histórico de Versões na UI:** Seção visual na tela Sobre com lista cronológica das versões liberadas (`v2.2.0`, `v2.1.0` e `v2.0.0`).
+- **Suporte Avançado a Teclado Android:** Componente `KeyboardScrollContainer` com `keyboardDismissMode="interactive"` e `softwareKeyboardLayoutMode: resize`.
+- **Scroll Automático Inteligente no Foco:** Cálculo de coordenadas com tolerância a múltiplos campos e campos multiline (como Endereço), garantindo visibilidade total durante a digitação.
+
+#### Corrigido (fix)
+- **Sobreposição do Teclado no Android:** Teclado virtual não cobre mais os campos de digitação em `HomeScreen`, `RegisterUserScreen`, `UpdateUserScreen`, `DeleteUserScreen`, `ViewUserScreen` e `ViewAllUsersScreen`.
+- **Visibilidade de Campo Multilinha:** Resolução de rolagem para o campo Endereço ao abrir o teclado virtual ou digitar múltiplas linhas.
+
+---
+
+### [2.1.0] - 2026-10-16
+
+#### Adicionado (feat / style)
+- **Iconografia Vetorial Moderna Lucide:** Adicionados 26 ícones SVG em `assets/icons/` com stroke padronizado `#0D9488` (Teal), substituindo ícones legados.
+- **Identidade Visual no README:** Títulos, tópicos, tabela de arquitetura e seções decoradas com ícones vetoriais modernos.
+
+#### Documentação (docs)
+- **README Modernizado:** Reformulação completa da documentação com guia de Clean Architecture, guia de execução, screenshots em grade e fluxo de uso.
+
+---
+
+### [2.0.0] - 2026-10-16
+
+#### Alterações Críticas (Breaking Changes)
+- **Clean Architecture & Clean Code:** Separação total em camadas Domain, Data e Presentation.
+- **Migração para API Síncrona do SQLite:** Substituição do WebSQL legado descontinuado pela API moderna `expo-sqlite` (v15 Sync via JSI).
+- **TypeScript 100% Estrito:** Tipagem completa de contratos, repositórios, entidades, use cases e navegação com TypeScript 6.0 e zero uso de `any`.
+- **Result Pattern:** Tratamento previsível de erros de domínio e infraestrutura sem exceções não tratadas.
+- **Stack Tecnológico Moderno:** Atualização para Expo SDK 57, React Native 0.86, React 19 e React Navigation 7.
+
+#### Adicionado (feat)
+- Navegação nativa Stack com temas centralizados (`theme.ts`).
+- Feedback visual com badges, chips de status, empty states e toasts informativos.
+- Busca unificada por ID e Nome em todas as operações de consulta e exclusão.
+- Modais e diálogos de confirmação customizados para operações destrutivas.
 
 ---
 
