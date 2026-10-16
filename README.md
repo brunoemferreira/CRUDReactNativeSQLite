@@ -6,7 +6,7 @@
 </br>
 
 <!-- ************************************* Título & Badges ********************************************* -->
-<h1 align="center">📱 CRUD React Native com SQLite & Clean Architecture</h1>
+<h1 align="center"><img src="./assets/icons/mobile.svg" width="28" height="28" valign="middle" /> CRUD React Native com SQLite & Clean Architecture</h1>
 
 <p align="center">
   <img alt="React Native Version" src="https://img.shields.io/badge/React%20Native-0.86.3-61DAFB?style=for-the-badge&logo=react&logoColor=black">
@@ -22,7 +22,7 @@
 
 ---
 
-## 🎯 Sobre o Projeto
+## <img src="./assets/icons/target.svg" width="22" height="22" valign="middle" /> Sobre o Projeto
 
 Este repositório foi concebido como um **projeto de aprendizado aprofundado**. Ele implementa um fluxo completo de **CRUD** (*Create, Read, Update, Delete*) de usuários persistido em um banco de dados **SQLite nativo e local**, executando em dispositivos móveis Android e iOS.
 
@@ -30,7 +30,7 @@ Originalmente construído com JavaScript e a API legada WebSQL (descontinuada), 
 
 ---
 
-## 🖼️ Galeria de Telas da Aplicação
+## <img src="./assets/icons/gallery.svg" width="22" height="22" valign="middle" /> Galeria de Telas da Aplicação
 
 <div align="center">
   <table>
@@ -73,7 +73,7 @@ Originalmente construído com JavaScript e a API legada WebSQL (descontinuada), 
 
 ---
 
-## 📊 Comparativo de Evolução Técnica
+## <img src="./assets/icons/activity.svg" width="22" height="22" valign="middle" /> Comparativo de Evolução Técnica
 
 Abaixo está o resumo do salto arquitetural e tecnológico realizado no projeto:
 
@@ -90,7 +90,7 @@ Abaixo está o resumo do salto arquitetural e tecnológico realizado no projeto:
 
 ---
 
-## 🏛️ Clean Architecture (Arquitetura Limpa)
+## <img src="./assets/icons/architecture.svg" width="22" height="22" valign="middle" /> Clean Architecture (Arquitetura Limpa)
 
 A arquitetura limpa proposta por Robert C. Martin (Uncle Bob) organiza o sistema em camadas concêntricas onde **a regra de negócio é independente de frameworks, banco de dados ou interface gráfica**.
 
@@ -130,7 +130,7 @@ graph TD
     Container --> UseCases
 ```
 
-### 1. `Domain` (Domínio)
+### <img src="./assets/icons/layers.svg" width="18" height="18" valign="middle" /> 1. Domain (Domínio)
 - **Localização:** `src/domain/`
 - **Responsabilidade:** Contém as entidades e regras de negócio essenciais. É **100% TypeScript puro**, sem nenhuma importação do React Native, Expo ou SQLite.
 - **Arquivos:**
@@ -144,7 +144,7 @@ graph TD
     - `UpdateUserUseCase.ts`: Valida campos e persiste as modificações.
     - `DeleteUserUseCase.ts`: Garante que o registro existe antes de removê-lo.
 
-### 2. `Data` (Dados)
+### <img src="./assets/icons/database.svg" width="18" height="18" valign="middle" /> 2. Data (Dados)
 - **Localização:** `src/data/`
 - **Responsabilidade:** Implementa os detalhes técnicos de infraestrutura e persistência de dados.
 - **Arquivos:**
@@ -159,7 +159,7 @@ graph TD
     ```
   - `repositories/SQLiteUserRepository.ts`: Implementa `IUserRepository`. Utiliza a API moderna do `expo-sqlite` para executar queries parametrizadas com proteção contra SQL Injection.
 
-### 3. `Presentation` (Apresentação)
+### <img src="./assets/icons/frontend.svg" width="18" height="18" valign="middle" /> 3. Presentation (Apresentação)
 - **Localização:** `src/presentation/`
 - **Responsabilidade:** Toda a interface do usuário, navegação, gerenciamento de estado local e feedback visual.
 - **Arquivos:**
@@ -168,17 +168,17 @@ graph TD
   - `hooks/useUsers.ts`: Hook customizado que encapsula o estado de carregamento, erros e listagem para manter as telas limpas.
   - `screens/`: Telas funcionais (`HomeScreen`, `RegisterUserScreen`, `UpdateUserScreen`, `ViewUserScreen`, `ViewAllUserScreen`, `DeleteUserScreen`, `AboutScreen`).
 
-### 4. `DI` (Injeção de Dependências)
+### <img src="./assets/icons/connect.svg" width="18" height="18" valign="middle" /> 4. DI (Injeção de Dependências)
 - **Localização:** `src/di/container.ts`
 - **Responsabilidade:** Instanciar as implementações de dados e injetá-las nos casos de uso. Permite trocar o banco de dados (por exemplo, de SQLite para API REST ou Mock de Testes) sem alterar uma única linha das regras de negócio ou das telas!
 
 ---
 
-## 💡 Como Funciona o SQLite Moderno (`expo-sqlite` v15)
+## <img src="./assets/icons/database.svg" width="22" height="22" valign="middle" /> Como Funciona o SQLite Moderno (<code>expo-sqlite</code> v15)
 
 Historicamente, o Expo e o React Native utilizavam o padrão **WebSQL** com transações baseadas em callbacks aninhados:
 
-### ❌ API Legada (WebSQL - Descontinuada)
+### <img src="./assets/icons/x-circle.svg" width="18" height="18" valign="middle" /> API Legada (WebSQL - Descontinuada)
 ```javascript
 // Callback Hell descontinuado
 db.transaction(function (tx) {
@@ -195,7 +195,7 @@ db.transaction(function (tx) {
 });
 ```
 
-### ✅ Nova API Síncrona / Direta (`expo-sqlite` v15)
+### <img src="./assets/icons/check-circle.svg" width="18" height="18" valign="middle" /> Nova API Síncrona / Direta (<code>expo-sqlite</code> v15)
 Com a New Architecture do React Native, o `expo-sqlite` oferece métodos diretos integrados via JSI (*JavaScript Interface*), muito mais rápidos e legíveis:
 
 ```typescript
@@ -225,7 +225,7 @@ const user = db.getFirstSync<UserDatabaseRow>(
 
 ---
 
-## 🛡️ O Padrão `Result<T>`
+## <img src="./assets/icons/shield.svg" width="22" height="22" valign="middle" /> O Padrão <code>Result&lt;T&gt;</code>
 
 Em vez de permitir que exceções não tratadas travem o aplicativo ou causem comportamentos imprevisíveis, todos os Casos de Uso retornam o tipo discriminado `Result<T>`:
 
@@ -251,19 +251,20 @@ if (result.success) {
 
 ---
 
-## 📂 Estrutura de Arquivos do Projeto
+## <img src="./assets/icons/folder.svg" width="22" height="22" valign="middle" /> Estrutura de Arquivos do Projeto
 
 ```plaintext
 CRUDReactNativeSQLite/
 ├── App.tsx                     # Ponto de entrada com GestureHandler e SafeAreaProvider
-├── app.json                    # Configurações do Expo (SDK 52, New Architecture, Splash)
+├── app.json                    # Configurações do Expo (SDK 57, New Architecture, Splash)
 ├── tsconfig.json               # Configurações estritas do TypeScript
 ├── package.json                # Dependências atualizadas do ecossistema
 ├── assets/                     # Ícones, splash screen e imagens de demonstração
 │   ├── icon.png                # Ícone principal do aplicativo (1024x1024)
 │   ├── adaptive-icon.png       # Ícone adaptativo para Android
 │   ├── splash.png              # Tela de carregamento do app
-│   └── 1.jpg ... 6.jpg         # Screenshots das telas para a documentação
+│   ├── icons/                  # Ícones vetoriais modernos em SVG para a documentação
+│   └── 1.jpg ... 7.jpg         # Screenshots em alta definição das telas do aplicativo
 ├── images/
 │   └── logo.png                # Banner estilizado do projeto
 └── src/
@@ -312,9 +313,9 @@ CRUDReactNativeSQLite/
 
 ---
 
-## 🚀 Como Executar o Projeto
+## <img src="./assets/icons/rocket.svg" width="22" height="22" valign="middle" /> Como Executar o Projeto
 
-### Pré-requisitos
+### <img src="./assets/icons/clipboard-list.svg" width="18" height="18" valign="middle" /> Pré-requisitos
 - **Node.js**: Versão LTS instalada (`v18`, `v20` ou `v24`).
 - **NPM** ou **Yarn**.
 - **Dispositivo Físico** com o app [Expo Go](https://expo.dev/go) instalado ou um **Emulador Android / Simulador iOS** configurado.
@@ -356,7 +357,7 @@ Abra o app **Expo Go** na mesma rede Wi-Fi e escaneie o **QR Code** exibido no t
 
 ---
 
-## 🧪 Roteiro de Validação das Funcionalidades (CRUD)
+## <img src="./assets/icons/flask.svg" width="22" height="22" valign="middle" /> Roteiro de Validação das Funcionalidades (CRUD)
 
 Para exercitar o aplicativo didaticamente, siga este fluxo:
 
@@ -395,7 +396,7 @@ Para exercitar o aplicativo didaticamente, siga este fluxo:
 
 ---
 
-## 🛠️ Dicas e Resolução de Problemas
+## <img src="./assets/icons/tools.svg" width="22" height="22" valign="middle" /> Dicas e Resolução de Problemas
 
 > [!TIP]
 > **Emulador Android desconectando do ADB?**
@@ -413,12 +414,12 @@ Para exercitar o aplicativo didaticamente, siga este fluxo:
 
 ---
 
-## 📄 Licença
+## <img src="./assets/icons/license.svg" width="22" height="22" valign="middle" /> Licença
 
 Este projeto está sob a licença **MIT** — sinta-se à vontade para estudar, clonar, bifurcar e utilizar como base para seus próprios projetos móveis.
 
 ---
 
 <p align="center">
-  Desenvolvido com 💙 e dedicação por <strong>Bruno Eduardo Ferreira</strong>
+  Desenvolvido com <img src="./assets/icons/heart.svg" width="16" height="16" valign="middle" /> e dedicação por <strong>Bruno Eduardo Ferreira</strong>
 </p>
